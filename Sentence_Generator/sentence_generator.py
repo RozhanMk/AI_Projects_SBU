@@ -7,7 +7,7 @@ ordered_words = []
 words_pairs = {}
 
 with codecs.open("speech.txt", mode="r", encoding='utf-8') as f:
-    words = f.read().split(" ")
+    words = f.read().split()
     for w in words:
         ordered_words.append(w)
 
@@ -37,7 +37,7 @@ def get_sentence():
     first_word = random.choice(list(first_words)) #get a random first word
     result.append(first_word)
     
-    while "." not in result[-1]:
+    while "." not in result[-1] and "?" not in result[-1] and "!" not in result[-1]:
         last_word = result[-1]
         chances = []
         for key in words_pairs[last_word].keys():
@@ -51,5 +51,6 @@ def get_sentence():
 with open("output.txt", "w") as f:
     result = ""
     for i in range(50):
-        result += get_sentence() + "\n"
+        sentence = get_sentence().removesuffix("\"")
+        result += sentence + "\n"
     f.write(result)
