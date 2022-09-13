@@ -1,14 +1,11 @@
 import random
 from webbrowser import get
-import numpy as np
 # eight queens problem
 
 def make_random():
     # board is a list of 8 numbers
-    first = np.arange(0, 8) # index is x and number on index is y
-    np.random.shuffle(first)
-    board = first
-    print(board)
+    board = [i for i in range(0,8)] # index is x and number on index is y
+    random.shuffle(board)
     return board
     
 def get_attacks(board): 
@@ -21,16 +18,16 @@ def get_attacks(board):
                 attacks += 1
     return attacks
 
-def evaluate(board):
-    while get_attacks(board) != 0:
-        for _ in range(0, 8):
-            attack1 = get_attacks(board)
-            board = get_neighbour(board)
-            attack2 = get_attacks(board)
-            if attack2 < attack1: # if the new board is better, keep it
-                if get_attacks(board) == 0:
-                    return board
-            
+def evaluate(board ):
+    main_attack = get_attacks(board)
+    while main_attack != 0:
+        temp = board
+        temp = get_neighbour(temp)
+        if get_attacks(temp) < main_attack:
+            board = temp
+            main_attack = get_attacks(temp)
+    return board
+    
                 
 def get_neighbour(board):
     row = random.randint(0, 7)
