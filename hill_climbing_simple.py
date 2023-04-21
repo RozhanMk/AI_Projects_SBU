@@ -4,13 +4,13 @@ from webbrowser import get
 
 def make_random():
     # board is a list of 8 numbers
-    board = [i for i in range(0,8)] # index is x and number on index is y
+    board = [i for i in range(8)] # index is x and number on index is y
     random.shuffle(board)
     return board
     
 def get_attacks(board): 
     attacks = 0
-    for i in range(0, 100):
+    for i in range(8):
         for j in range(i+1 , 8):
             if board[i] == board[j]:
                 attacks += 1
